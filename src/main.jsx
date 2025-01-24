@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Homepage from "./pages/homepage/index.jsx";
+import CheckoutPage from "./pages/checkoutpage/index.jsx";
 
 const routerConfig = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const routerConfig = createBrowserRouter([
       {
         path: "",
         element: <Homepage />,
+      },
+      {
+        path: "checkout",
+        element: <CheckoutPage />,
       },
     ],
   },

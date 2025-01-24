@@ -14,6 +14,9 @@ export const getProductAPI = async (postData) => {
 export const createProductAPI = async (postData) => {
   const response = await fetch(`${BASE_URL}/api/products/`, {
     method: "POST",
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    },
     body: postData,
   });
 

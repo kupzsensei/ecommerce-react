@@ -3,6 +3,7 @@ import { AuthContext } from "../App";
 import { jwtDecode } from "jwt-decode";
 import { useQuery } from "@tanstack/react-query";
 import { getCartAPI } from "../API/cartAPI";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar({
   setLoginModal,
@@ -18,7 +19,7 @@ export default function Navbar({
     setPopover(false);
   }, [loginModal]);
 
-  const { data: carts } = useQuery({
+  const { data } = useQuery({
     queryFn: getCartAPI,
     queryKey: ["carts"],
   });
@@ -39,23 +40,30 @@ export default function Navbar({
             src="https://cdn-icons-png.flaticon.com/512/275/275790.png"
             alt=""
             className="h-[50px] drop-shadow-md cursor-pointer"
-            onClick={() => setCartPopOver(!cartPopOver)}
+            onClick={() => {
+              if (jwtDecode(token.authData).username) {
+                setCartPopOver(!cartPopOver);
+              }
+            }}
           />
           {cartPopOver && (
-            <div className="shadow-md absolute top-0 left-[0] translate-y-[10%] -translate-x-[90%] bg-white rounded-lg p-3 w-[300px] h-[500px] overflow-y-auto">
-              {carts?.map((item) => (
+            <div className="shadow-md absolute top-0 left-[0] flex flex-col gap-3 translate-y-[10%] -translate-x-[90%] bg-white rounded-lg p-3 w-[300px] h-[500px] overflow-y-auto">
+              {data?.map((item) => (
                 <div
                   key={item.id}
                   className="flex gap-1 items-center border border-gray-400 p-2"
                 >
                   <img src="" alt="" className="w-[50px] h-[50px]" />
                   <div className="flex-1">
-                    <h1>title</h1>
-                    <h1>Price</h1>
+                    <h1>{item.product.name}</h1>
+                    <h1>{item.product.price}</h1>
                   </div>
-                  <h1>100</h1>
+                  <h1>{item.quantity}</h1>
                 </div>
               ))}
+              <NavLink to={"/checkout"} className="font-bold text-center">
+                Checkout
+              </NavLink>
             </div>
           )}
         </div>
