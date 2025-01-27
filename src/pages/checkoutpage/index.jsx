@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "../../API";
 import CheckoutModal from "../../components/checkout-modal";
 
-export const CartItem = ({ item, setSelected }) => {
+export const CartItem = ({ item, setSelected, product }) => {
   const queryClient = useQueryClient();
-  const [quantity, setQuantity] = useState(1);
-
+  const [quantity, setQuantity] = useState(item?.quantity || 1);
+  //   console.log(product, "product itemcard");
   const patchMutation = useMutation({
     mutationFn: updateCartAPI,
     onSettled: (data) => {
@@ -77,17 +77,26 @@ export const CartItem = ({ item, setSelected }) => {
         <h1>{item?.product.name}</h1>
         <h1>{item?.product.price}</h1>
       </div>
-      <div className="flex gap-2 items-center">
-        <button onClick={decrement}>-</button>
-        <h1>{quantity}</h1>
-        <button onClick={increment}>+</button>
-      </div>
-      <span
-        onClick={toggleSelect}
-        className="border cursor-pointer border-black p-1 ml-5"
-      >
-        <h1 className={item?.selected ? "opacity-1" : "opacity-0"}>✔</h1>
-      </span>
+      {product ? (
+        <div>Quantity: {item?.quantity}</div>
+      ) : (
+        <div className="flex gap-2 items-center">
+          <button onClick={decrement}>-</button>
+          <h1>{quantity}</h1>
+          <button onClick={increment}>+</button>
+        </div>
+      )}
+
+      {product ? (
+        ""
+      ) : (
+        <span
+          onClick={toggleSelect}
+          className="border cursor-pointer border-black p-1 ml-5"
+        >
+          <h1 className={item?.selected ? "opacity-1" : "opacity-0"}>✔</h1>
+        </span>
+      )}
     </div>
   );
 };

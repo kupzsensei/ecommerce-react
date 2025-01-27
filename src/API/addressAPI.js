@@ -1,7 +1,7 @@
 import { BASE_URL } from ".";
 
-export const getCartAPI = async (postData) => {
-  const response = await fetch(`${BASE_URL}/api/cart/`, {
+export const getAddressAPI = async () => {
+  const response = await fetch(`${BASE_URL}/api/address/`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -9,11 +9,11 @@ export const getCartAPI = async (postData) => {
     // body: postData,
   });
   const res = await response.json();
-  // console.log(res);
+  console.log(res, "address");
   return res;
 };
 
-export const addtoCartAPI = async (postData) => {
+export const createAddressAPI = async (postData) => {
   const response = await fetch(`${BASE_URL}/api/cart/`, {
     method: "POST",
     headers: {
@@ -22,11 +22,11 @@ export const addtoCartAPI = async (postData) => {
     body: postData,
   });
   const res = await response.json();
-  // console.log(res, "cart post");
+  console.log(res, "cart post");
   return res;
 };
 
-export const updateCartAPI = async (postData) => {
+export const updateAddressAPI = async (postData) => {
   const response = await fetch(`${BASE_URL}/api/cart/`, {
     method: "PATCH",
     headers: {
@@ -35,11 +35,11 @@ export const updateCartAPI = async (postData) => {
     body: postData,
   });
   const res = await response.json();
-  // console.log(res, "cart patch");
+  console.log(res, "cart patch");
   return res;
 };
 
-export const removeCartAPI = async (postData) => {
+export const removeAddressAPI = async (postData) => {
   const response = await fetch(`${BASE_URL}/api/cart/`, {
     method: "DELETE",
     headers: {
@@ -48,6 +48,6 @@ export const removeCartAPI = async (postData) => {
     body: postData,
   });
   const res = await response.json();
-  // console.log(res, "cart patch");
+  console.log(res, "cart patch");
   return res;
 };

@@ -6,6 +6,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Homepage from "./pages/homepage/index.jsx";
 import CheckoutPage from "./pages/checkoutpage/index.jsx";
+import OrderPage from "./pages/orderPage/index.jsx";
+import Preparing from "./pages/orderPage/preparing.jsx";
+import ToShip from "./pages/orderPage/toship.jsx";
+import Delivery from "./pages/orderPage/delivery.jsx";
+import Completed from "./pages/orderPage/completed.jsx";
 
 const routerConfig = createBrowserRouter([
   {
@@ -19,6 +24,28 @@ const routerConfig = createBrowserRouter([
       {
         path: "checkout",
         element: <CheckoutPage />,
+      },
+      {
+        path: "orders/",
+        element: <OrderPage />,
+        children: [
+          {
+            element: <Preparing />,
+            path: "",
+          },
+          {
+            element: <ToShip />,
+            path: "toship/",
+          },
+          {
+            element: <Delivery />,
+            path: "delivery",
+          },
+          {
+            element: <Completed />,
+            path: "completed",
+          },
+        ],
       },
     ],
   },
